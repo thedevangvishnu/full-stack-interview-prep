@@ -3,7 +3,7 @@
 #### 01 - What are arrays in js? How to get, add and remove elements from arrays?
 
 - An array is "a list of data items" that are stored in contiguous memory locations.
-- It's a non-primitive data type in js that can contain a number of primitive and non-primitive values, that are present at suceessive memory location in memory (one item is stored after the other item in the next memory location).
+- It's a non-primitive data type in js that can contain a number of primitive and non-primitive values, that are present at suceessive memory location (one item is stored after the other item in the next memory location).
 - Arrays are "0-indexed", meaning the position of the first element starts from 0.
 
 ```js
@@ -231,7 +231,7 @@ console.log(secondUser); // Vishnu
 
 #### 14 - What is the `at()` method in js? Why was it introduced and what problem does it solve? What is the difference between `at()` and `[]`?
 
-- `at()` method in array, introducts in ES2022 addition and it's used to "get the element" value at a given index
+- `at()` method in array, introduced in ES2022 addition, is used to "get the element" value at a given index
 
 - In some languages, the last element of an array/object/string is accessed using "Negative Bracket Indexing"
 

@@ -179,13 +179,13 @@ function multiply(...args) {
 
 const advCurriedMultiply = advCurry(multiply);
 console.log(advCurriedMultiply(2, 3, 4)); // 24 (normal call)
-console.log(advCurriedMultiply(1)(2, 3)); // TypeError: because advCurriedMultiple(1) return a value and value(1)(2) is a function
+console.log(advCurriedMultiply(1)(2, 3)); // TypeError: because advCurriedMultiple(1) return a value and value(1)(2) is not a function
 ```
 
 #### Currying using `bind()` method
 
 - The `bind()` function handles arguments very smartly. It handles all edge cases for arguments.
-- When using bing() method, we can define the function that is invoked using rest paramters. That is better implementation that applying it with fixed number of argumenets
+- When using bind() method, we can define a function that is invoked using rest paramters. That is better implementation than applying it with fixed number of arguments.
 
 ```js
 function multiply(...args) {
