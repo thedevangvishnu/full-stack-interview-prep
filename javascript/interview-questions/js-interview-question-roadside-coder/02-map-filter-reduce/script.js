@@ -160,50 +160,50 @@
 
 // 7.1: Return only the name of students in Capital letters
 
-const students = [
-  { name: "Aman", id: 20, marks: 75 },
-  { name: "Shyan", id: 21, marks: 95 },
-  { name: "Rohit", id: 22, marks: 85 },
-  { name: "Mira", id: 23, marks: 92 },
-];
+// const students = [
+//   { name: "Aman", id: 20, marks: 75 },
+//   { name: "Shyan", id: 21, marks: 95 },
+//   { name: "Rohit", id: 22, marks: 85 },
+//   { name: "Mira", id: 23, marks: 92 },
+// ];
 
-const names = students.map((student) => student.name.toUpperCase());
-console.log(names); // ["AMAN", "SHYAN", "ROHIT", "MIRA"]
+// const names = students.map((student) => student.name.toUpperCase());
+// console.log(names); // ["AMAN", "SHYAN", "ROHIT", "MIRA"]
 
-// 7.2: Return only the details of those students who scored more than 90
+// // 7.2: Return only the details of those students who scored more than 90
 
-const moreThan90 = students.filter((student) => student.marks > 90);
-console.log(moreThan90);
-// [{ name: "Shyan", id: 21, marks: 95 },{ name: "Mira", id: 23, marks: 92 }]
+// const moreThan90 = students.filter((student) => student.marks > 90);
+// console.log(moreThan90);
+// // [{ name: "Shyan", id: 21, marks: 95 },{ name: "Mira", id: 23, marks: 92 }]
 
-// 7.3: Return only the details of those students who scored more than 80 and id greater than 21
+// // 7.3: Return only the details of those students who scored more than 80 and id greater than 21
 
-const result3 = students.filter(
-  (student) => student.marks > 80 && student.id > 21
-);
-console.log(result3);
-// [{ name: "Rohit", id: 22, marks: 85 },{ name: "Mira", id: 23, marks: 92 }]
+// const result3 = students.filter(
+//   (student) => student.marks > 80 && student.id > 21
+// );
+// console.log(result3);
+// // [{ name: "Rohit", id: 22, marks: 85 },{ name: "Mira", id: 23, marks: 92 }]
 
-// 7.4: Calculate the sum of marks of all of the students
+// // 7.4: Calculate the sum of marks of all of the students
 
-const sum = students.reduce((acc, val, i, arr) => acc + val.marks, 0);
-console.log(sum); // 347
+// const sum = students.reduce((acc, val, i, arr) => acc + val.marks, 0);
+// console.log(sum); // 347
 
-// 7.5: Return only names of those students who scored more than 80
+// // 7.5: Return only names of those students who scored more than 80
 
-const result5 = students
-  .filter((student) => student.marks > 80)
-  .map((student) => student.name);
-console.log(result5); // ["Shyan", "Rohit", "Mira"]
+// const result5 = students
+//   .filter((student) => student.marks > 80)
+//   .map((student) => student.name);
+// console.log(result5); // ["Shyan", "Rohit", "Mira"]
 
-// 7.6: Return total marks for students with marks greater than 90 after 10 marks have been added to those who scored less than 90 *
+// // 7.6: Return total marks for students with marks greater than 90 after 10 marks have been added to those who scored less than 90 *
 
-const result6 = students
-  .map((stu) => (stu.marks < 90 ? stu.marks + 10 : stu.marks))
-  .filter((marks) => marks > 90)
-  .reduce((acc, val) => acc + val, 0);
+// const result6 = students
+//   .map((stu) => (stu.marks < 90 ? stu.marks + 10 : stu.marks))
+//   .filter((marks) => marks > 90)
+//   .reduce((acc, val) => acc + val, 0);
 
-console.log(result6); // 282
+// console.log(result6); // 282
 
 /**
  * Output:
@@ -213,3 +213,80 @@ console.log(result6); // 282
  */
 
 /* ********************************************************* */
+
+// Question 8: Use map() to capitalize the first letter of each string in an array of strings.
+
+const words = ["hello", "how", "are", "you?"];
+// The output should be: Hello How Are You
+
+console.log(words.map((val, i) => val[0].toUpperCase() + val.slice(1)));
+
+/**
+ * Output:
+ *
+ * Answer/Explanation:
+ *
+ */
+
+/* ********************************************************* */
+
+// Question 9: Given an array of strings, use reduce() to count the number of occurrences of each string.
+
+const strs = ["hello", "hey", "hey", "hi", "hi", "hi", "hello", "heya"];
+
+const frequency = strs.reduce((acc, val, i, arr) => {
+  acc[val] = !acc[val] ? 1 : acc[val] + 1;
+
+  return acc;
+}, {});
+console.log(frequency);
+
+/**
+ * Output:
+ *
+ * Answer/Explanation:
+ *
+ */
+
+/* ********************************************************* */
+
+// Question 10: Use reduce() to flatten an array of arrays into a single array. These are can nested multiple levels deep.
+
+const numbers = [10, 20, [30, 40, [50, 60], 70], 80];
+
+function flattenArray(arr) {
+  return arr.reduce((acc, val, i, arr) => {
+    if (Array.isArray(val)) {
+      return acc.concat(flattenArray(val));
+    } else {
+      acc.push(val);
+      return acc;
+    }
+  }, []);
+}
+
+console.log(flattenArray(numbers)); // [10, 20, 30, 40, 50, 60, 70, 80]
+
+/**
+ * Output:
+ *
+ * Answer/Explanation:
+ *
+ */
+
+/* ********************************************************* */
+
+// Question 8: Use map() to capitalize the first letter of each string in an array of strings.
+
+/**
+ * Output:
+ *
+ * Answer/Explanation:
+ *
+ */
+
+/* ********************************************************* */
+
+// 2 -Count Occurrences:
+
+//

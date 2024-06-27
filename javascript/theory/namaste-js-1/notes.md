@@ -52,9 +52,22 @@
     - Functional
     - Block
 
+##### Lexical Scope, Lexical Environment
+
+- Lexical: the relationship between functions and their surrounding in a souce code.
+
+- Lexical Scope
+
+  - The region of the source code (context) within which a bindding (variable or function) is valid. Lexical scope of a biding is determined at the creation time. It cannot be changed.
+
 - Lexical environment
 
-  - A data structure that stores identifier-variables mapping. It consists of the current scope and the lexical environment of the parent (parent's scope + grandparent's lexical environment and so on).
+  - It is the "runtime representation of lexical scope"
+  - Lexical environment is a data structure in JS that holds "identifier-variable mapping." It keeps track of where a binding is defined and provides a way to access it during the execution of code.
+  - It is made up of two components:
+
+    - Environment Record: An object that stores all the local bindings and their values inside current scope.
+    - Outer Lexical Environment Reference: A reference to the lexical environment of the parent scope.
 
 - Scope Chain
 

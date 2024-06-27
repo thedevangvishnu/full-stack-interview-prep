@@ -198,3 +198,5 @@ console.log(curriedMultiply()); // 6
 const curriedMultiplyBy4 = multiply.bind(this, 4);
 console.log(curriedMultiplyBy4(10, 2)); // 80
 ```
+
+## 5 - Debouncing in JS

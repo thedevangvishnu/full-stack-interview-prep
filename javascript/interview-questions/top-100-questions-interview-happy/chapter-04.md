@@ -120,7 +120,7 @@ arr.lastIndexOf(100); // -1
   - used to add/remove elements in an array without mutating the original array.
   - returns the new array with new added/removed values
 
-#### 09 - What is the difference between `map()` and `forEach()` methods of an array?
+#### 09 - What is the difference between `map()` and `forEach()` methods of an array? \*\*
 
 - `map()` method
 
