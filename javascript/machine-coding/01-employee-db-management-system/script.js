@@ -3,6 +3,9 @@ const employeeList = document.querySelector(".employee-list");
 const employeeInfo = document.getElementById("employee-info");
 const modalContainer = document.querySelector(".modal__container");
 
+const form = document.getElementById("form");
+const submitBtn = document.getElementById("submitBtn");
+
 async function main() {
   const res = await fetch("./data.json");
   const data = await res.json();
@@ -132,10 +135,39 @@ async function main() {
     }
   });
 
+  // handle form submit
+  function handleFormSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const entries = [...formData.entries()];
+    const emp = {};
+
+    entries.forEach((entry) => {
+      emp[entry[0]] = entry[1];
+    });
+
+    emp.id = employees.length > 0 ? employees.length + 1 : 1;
+    emp.imageUrl =
+      emp.imageUrl ||
+      "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
+
+    employees.push(emp);
+
+    selectedEmpId = emp.id;
+    selectedEmp = emp;
+
+    renderEmployeeList();
+    renderEmployeeDetails(selectedEmp);
+
+    form.reset();
+    modalContainer.classList.remove("show");
+  }
+
+  form.addEventListener("submit", (e) => handleFormSubmit(e));
+
   renderEmployeeList();
   renderEmployeeDetails(selectedEmp);
-
-  //   helper functon
 }
 
 main();

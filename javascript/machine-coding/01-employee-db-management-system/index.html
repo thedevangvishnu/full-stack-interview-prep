@@ -29,27 +29,47 @@
       <div class="modal">
         <h2 class="modal__title">Add Employee Details</h2>
         <div class="form__container">
-          <form action="">
+          <form action="" id="form">
             <div class="field">
               <label for="">Name</label>
-              <input type="text" id="name" placeholder="John Kelly" />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="John Kelly"
+              />
             </div>
 
             <div class="field__group">
               <div class="field">
                 <label for="email">Email</label>
-                <input type="text" id="email" placeholder="john@email.com" />
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="john@email.com"
+                />
               </div>
 
               <div class="field">
                 <label for="mobile">Mobile</label>
-                <input type="text" id="mobile" placeholder="12341234" />
+                <input
+                  type="text"
+                  id="mobile"
+                  name="mobile"
+                  placeholder="12341234"
+                />
               </div>
             </div>
 
             <div class="field">
               <label for="address">Address</label>
-              <input type="text" id="address" placeholder="Some Street, City" />
+              <input
+                type="text"
+                id="address"
+                name="address"
+                placeholder="Some Street, City"
+              />
             </div>
 
             <div class="field__group">
@@ -58,17 +78,18 @@
                 <input
                   type="text"
                   id="imageUrl"
+                  name="imageUrl"
                   placeholder="https://www.google.com/img"
                 />
               </div>
 
               <div class="field">
                 <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" placeholder="" />
+                <input type="date" id="dob" name="dob" />
               </div>
             </div>
 
-            <button>Add</button>
+            <button id="submitBtn" type="submit">Add</button>
           </form>
         </div>
       </div>
