@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "John Kelly",
+    "address": "123 Maple Street, Springfield, IL",
+    "email": "john.kelly@example.com",
+    "mobile": "124231423423",
+    "dob": "24/06/1996",
+    "imageUrl": "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg="
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "address": "456 Oak Avenue, Chicago, IL",
+    "email": "jane.smith@example.com",
+    "mobile": "124231423424",
+    "dob": "12/03/1988",
+    "imageUrl": "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg="
+  },
+  {
+    "id": 3,
+    "name": "Robert Brown",
+    "address": "789 Pine Road, Naperville, IL",
+    "email": "robert.brown@example.com",
+    "mobile": "124231423425",
+    "dob": "08/11/1992",
+    "imageUrl": "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg="
+  },
+  {
+    "id": 4,
+    "name": "Emily Davis",
+    "address": "567 Elm Street, Aurora, IL",
+    "email": "emily.davis@example.com",
+    "mobile": "124231423426",
+    "dob": "15/09/1990",
+    "imageUrl": "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg="
+  },
+  {
+    "id": 5,
+    "name": "Michael Johnson",
+    "address": "890 Cedar Lane, Joliet, IL",
+    "email": "michael.johnson@example.com",
+    "mobile": "124231423427",
+    "dob": "02/05/1985",
+    "imageUrl": "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg="
+  }
+]
