@@ -292,23 +292,34 @@
 // console.log(log());
 
 // Followup: Make this into a generic function
-function once(func, context) {
-  let ran;
 
-  return function () {
-    if (func) {
-      ran = func.apply(context || this, arguments);
-      func = null;
-    }
-    return ran;
-  };
-}
+// function once(func, context) {
+//   let ran;
 
-const connect = once((message) => `Message: ${message}`);
-console.log(connect("Server connected...."));
-console.log(connect("Server disconnected...."));
-console.log(connect("Server destroyed...."));
-console.log(connect("Server connected...."));
+//   return function () {
+//     if (func) {
+//       ran = func.apply(context || this, arguments);
+//       func = null;
+//     }
+//     return ran;
+//   };
+// }
+
+// // use case: connecting to a database
+// const connectToDb = once(() => {
+//   console.log("Connecting to DB...");
+//   // actual connection logic
+
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("Connected!"), 4000);
+//   });
+
+//   // return "Connected Successfully!";
+// });
+
+// connectToDb().then((data) => console.log(data));
+// connectToDb().then((data) => console.log(data));
+// connectToDb().then((data) => console.log(data));
 
 /**
  * Output:
@@ -319,7 +330,45 @@ console.log(connect("Server connected...."));
 
 /* ********************************************************* */
 
-// Question 1:
+// Question 10: Polyfill for memoize
+
+function product(num1, num2) {
+  // just fake blocking
+  for (let i = 0; i < 100000000; i++) {}
+
+  return num1 * num2;
+}
+
+console.time("First call");
+console.log(product(1234, 5678));
+console.timeEnd("First call");
+
+console.time("Second call");
+console.log(product(1234, 5678));
+console.timeEnd("Second call");
+
+function memoize(func, context) {
+  const result = {};
+
+  return function (...args) {
+    let cachedArgs = String(args);
+    if (!result[cachedArgs]) {
+      result[cachedArgs] = func.apply(context || this, args);
+    }
+
+    return result[cachedArgs];
+  };
+}
+
+const memoizedProduct = memoize(product);
+
+console.time("First call");
+console.log(memoizedProduct(1234, 5678));
+console.timeEnd("First call");
+
+console.time("Second call");
+console.log(memoizedProduct(1234, 5678));
+console.timeEnd("Second call");
 
 /**
  * Output:
