@@ -114,10 +114,78 @@
   - When a function is taken out of its original scope, it still remembers its scope alongwith its lexical environment where it was originally present.
 
 - Advantages
+
   - currying function
-  - data hiding
-  -
+  - data hiding and encapsulation
+  - Module Pattern
+  - utilized in making functions run only once.
+  - used to memoize functions
+
 - Disadvantages
+  - heavy memory consumption
+  - hard to grab your head
+  - hard to debug
+
+#### Module Pattern
+
+- Some terms to know:
+
+  - Module: a container/collection of code that groups togther related data and functions and encapsulates a certain functionality.
+
+  - Encapsulation: It is the idea of putting together related data and function into one component making it more clearer in its functionality.
+
+  - Data hiding: It's a concept that hides the internal object details and only exposes certain, controlled access points to the outside world. It is used to restrict access to private data, hence protecting from outside interferance, making code more secure and maintainable.
+
+- Module Pattern is a design pattern that is used to create encpasulated modules, allowing for creation of private and public memebers in the module. It gives us more control in deciding which members to expose to the outside world and how to exactly do that. It leverages closures to do so, where public members are returned which do have lexical reference to the private members (if the logic defined allows to do so).
+  - Can be created using normal function or IIFE.
+  - Using IIFE allows for better data hiding and security.
+
+```js
+const md = (function mymodule() {
+  const _privateKey = 1234;
+  function _privateFun() {
+    console.log("Private key: This is hidden");
+  }
+
+  return {
+    publicVar: this._privateKey + 1111,
+    publicFun: function () {
+      console.log(this._privateFun);
+      console.log("Public key:", this.publicVar);
+    },
+  };
+})();
+
+md.publicFun();
+```
+
+- Revealing Module Pattern
+
+  - Revealing Module Pattern is similar to Module Pattern in almost every sense. The key difference lies in how the public interface is architectured.
+    - In MP, we define all the private variables and methods inside the private scope and then return a public interface containing all the defined public variables and functions.
+    - In RMP, we define all the variables and functions inside the private scope and return an interface that has public names which are mapped to those private variables and function that wo want to "reveal" to the outside world. RMP is cleaner and more maintainable way to create encapsulated modules.
+
+```js
+const md = (function mymodule() {
+  const _privateKey = 1234;
+  function _privateFun() {
+    console.log("Private key: This is hidden");
+  }
+
+  let publicVar: this._privateKey + 1111;
+  function publicFunc() {
+      console.log(this._privateFun);
+      console.log("Public key:", this.publicVar);
+    }
+
+  return {
+    publicVar,
+    publicFun,
+  };
+})();
+
+md.publicFun();
+```
 
 ### 9 - Functions
 
