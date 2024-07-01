@@ -20,3 +20,12 @@ Q - What is the type of class, array, function
 Q - What are promises in js? Can you create a Promise and resolve it when the button is clicked?
 
 Q - How can you crate a promise without using "new Promise" syntax? How can you create a pending state?
+
+Q - What happens when "await" keyword is encountered in code? Does it block the main thread? How does the code execution work when using async/await?
+
+
+// Modules
+
+Q - If we have a first.js script file (which is attached inside index.html and is of type module) and another second.js script file. Now the second.js file has two console.log statements and then it exports some variables. The second.js file is imported in the first.js using import syntax on line 3. Now we add console.log("start") to line 1 of first.js. Which console.log() will be executed and why?
+
+Q - In the above file setup, we add a variable using "var" in first.js file. What will be the scope: Global? Local? some other? If global, can you access it directly inside browser console? Explain.
