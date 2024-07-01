@@ -1,0 +1,22 @@
+HTML and CSS
+
+Q - What is the difference between using script tag in the head and using it just above the closing body tag? What is the difference between "defer" and "async" attribute?
+
+Q - Can we create custom tags in HTML? What will their display type: block or inline?
+
+Q - What is the difference between inline and block elements? If we provide top padding to an inline-element, what will happen? How will it be displayed? What happens if applied the same changes to block elements?
+
+Q - What are the two types of inline element? What is the difference between those types?
+
+Q - What is box modal? Do inline elements follow box-modal rule
+
+
+JavaScript
+
+Q - What are different datatypes in js? 
+
+Q - What is the type of class, array, function
+
+Q - What are promises in js? Can you create a Promise and resolve it when the button is clicked?
+
+Q - How can you crate a promise without using "new Promise" syntax? How can you create a pending state?
