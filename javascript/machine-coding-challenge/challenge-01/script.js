@@ -10,7 +10,10 @@ const employeeInfo = document.querySelector(".employee__info");
 const addEmployeeBtn = document.querySelector(".header__button");
 
 const modalContainer = document.querySelector(".modal__container");
+const modalTitle = document.querySelector(".modal__title");
+
 const form = document.querySelector(".modal__form");
+const formBtn = document.querySelector(".modal__form--btn");
 
 async function main() {
   // fetch data
@@ -36,10 +39,17 @@ async function main() {
       }
 
       const employeeName = generateDOMElement("h4", emp.name);
-      const deleteBtn = generateDOMElement("span", "x");
+      // const deleteBtn = generateDOMElement("span", "x");
+
+      const editBtn = generateDOMElement("i", "", ["ri-edit-2-fill", "icon"]);
+      const deleteBtn = generateDOMElement("i", "", ["ri-close-line", "icon"]);
+
+      const icons = generateDOMElement("span", "", ["icons"]);
+      icons.appendChild(editBtn);
+      icons.appendChild(deleteBtn);
 
       employee.appendChild(employeeName);
-      employee.appendChild(deleteBtn);
+      employee.appendChild(icons);
 
       employeesList.appendChild(employee);
 
@@ -49,10 +59,21 @@ async function main() {
 
       // delete employee
       deleteBtn.addEventListener("click", (e) => {
-        if (e.target.tagName === "SPAN") {
+        if (e.target.tagName === "I") {
           e.stopPropagation();
-          const itemId = parseInt(e.target.parentElement.id);
+          // Each icon has a span as it's parent and each span has li as its parent. The id of each employee is  the id of the li element
+          const itemId = parseInt(e.target.parentElement.parentElement.id);
           handleDelete(e, itemId);
+        }
+      });
+
+      // edit employee functionality
+      editBtn.addEventListener("click", (e) => {
+        if (e.target.tagName === "I") {
+          e.stopPropagation();
+
+          const itemId = parseInt(e.target.parentElement.parentElement.id);
+          handleEdit(e, itemId);
         }
       });
 
@@ -97,6 +118,8 @@ async function main() {
           renderEmpDetails(selectedEmp);
         }
       }
+
+      function handleEdit(e, itemId) {}
     });
   }
 
@@ -139,49 +162,13 @@ async function main() {
   }
 
   // show/hide modal
-  addEmployeeBtn.addEventListener("click", () => {
-    modalContainer.classList.add("modal--show");
-  });
+  addEmployeeBtn.addEventListener("click", (e) => {});
 
   modalContainer.addEventListener("click", (e) => {
     if (e.target.id === "modal-container") {
+      form.reset();
       modalContainer.classList.remove("modal--show");
     }
-  });
-
-  // add employee using form
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const newEmp = {};
-    const formData = new FormData(form);
-    const entries = [...formData.entries()];
-
-    console.log(entries);
-
-    entries.forEach((entry) => {
-      console.log("Each entry value", entry[1]);
-      newEmp[entry[0]] = entry[1];
-    });
-
-    newEmp.id = employees.length > 0 ? employees.length + 1 : 1;
-
-    newEmp.imageUrl =
-      newEmp.imageUrl ||
-      "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
-
-    // handle dob
-
-    employees.push(newEmp);
-    selectedEmpId = newEmp.id;
-    selectedEmp = newEmp;
-
-    modalContainer.classList.remove("modal--show");
-
-    renderEmpList();
-    renderEmpDetails(selectedEmp);
-
-    form.reset();
   });
 }
 
@@ -196,11 +183,3 @@ function generateDOMElement(tag, content, classes) {
 
   return element;
 }
-
-/**
- * TO DOs:
- *    - add "Edit" functionality
- *    - localStorage
- *    - restrictions inside form
- *    - add toasts
- */
