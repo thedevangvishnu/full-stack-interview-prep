@@ -15,6 +15,9 @@ const modalTitle = document.querySelector(".modal__title");
 const form = document.querySelector(".modal__form");
 const formBtn = document.querySelector(".modal__form--btn");
 
+const FALLBACK_IMAGE_URL =
+  "https://media.istockphoto.com/id/1327592506/vector/default-avatar-photo-placeholder-icon-grey-profile-picture-business-man.jpg?s=612x612&w=0&k=20&c=BpR0FVaEa5F24GIw7K8nMWiiGmbb8qmhfkpXcp1dhQg=";
+
 async function main() {
   // fetch data
   const res = await fetch("./data.json");
@@ -119,7 +122,27 @@ async function main() {
         }
       }
 
-      function handleEdit(e, itemId) {}
+      function handleEdit(e, itemId) {
+        if (e.target.tagName === "I") {
+          e.stopPropagation();
+          selectedEmp = employees.find((emp) => emp.id === itemId);
+
+          // populate form fields with the info about the selected item before opening
+          for (const key in selectedEmp) {
+            const input = form.querySelector(`[name=${key}]`);
+            if (input) {
+              input.value = selectedEmp[key];
+            }
+          }
+
+          form.dataset.type = "edit";
+          formBtn.textContent = "Save Changes";
+          modalContainer.classList.add("modal--show");
+
+          // modalContainer.classList.add("modal--show");
+          // form.dataset.type = "edit";
+        }
+      }
     });
   }
 
@@ -162,7 +185,15 @@ async function main() {
   }
 
   // show/hide modal
-  addEmployeeBtn.addEventListener("click", (e) => {});
+  addEmployeeBtn.addEventListener("click", (e) => {
+    if (e.target.tagName === "BUTTON") {
+      e.stopPropagation();
+
+      form.dataset.type = "add";
+      formBtn.textContent = "Add";
+      modalContainer.classList.add("modal--show");
+    }
+  });
 
   modalContainer.addEventListener("click", (e) => {
     if (e.target.id === "modal-container") {
@@ -170,6 +201,66 @@ async function main() {
       modalContainer.classList.remove("modal--show");
     }
   });
+
+  form.addEventListener("submit", (e) => {
+    // const type = form.dataset.type;
+    // handleSubmit(e, type);
+
+    const type = form.dataset.type;
+    handleSubmit(e, type);
+  });
+
+  function handleSubmit(e, type) {
+    // event.preventDefault();
+    // const formData = new FormData(form);
+    // const employee = {};
+    // for (const [key, value] of formData.entries()) {
+    //   employee[key] = value;
+    // }
+    // if (type === "edit") {
+    //   // Update existing employee
+    //   selectedEmp = { ...selectedEmp, ...employee };
+    //   employees = employees.map((emp) =>
+    //     emp.id === selectedEmp.id ? selectedEmp : emp
+    //   );
+    // } else {
+    //   // Add new employee
+    //   employee.id = employees.length > 0 ? employees.length + 1 : 1;
+    //   employee.imageUrl = employee.imageUrl || FALLBACK_IMAGE_URL; // Set a default image URL
+    //   employees.push(employee);
+    // }
+    // // Save changes to local storage or perform an API call
+    // // localStorage.setItem("employees", JSON.stringify(employees));
+    // // Refresh UI
+    // renderEmpList();
+    // renderEmpDetails(employee); // Show the newly added or edited employee details
+    // modalContainer.classList.remove("modal--show");
+    // form.reset();
+    e.preventDefault();
+    const formData = new FormData(form);
+    const employee = {};
+    const entries = [...formData.entries()];
+    for (const [key, value] of entries) {
+      employee[key] = value;
+    }
+    if (type === "edit") {
+      selectedEmp = { ...selectedEmp, ...employee };
+      employees = employees.map((emp) =>
+        emp.id === selectedEmp.id ? selectedEmp : emp
+      );
+    } else {
+      employee.id = employees.length > 0 ? employees.length + 1 : 1;
+      employee.imageUrl = employee.imageUrl || FALLBACK_IMAGE_URL;
+      employees.push(employee);
+      selectedEmp = employee;
+    }
+
+    selectedEmpId = selectedEmp.id;
+    renderEmpList();
+    renderEmpDetails(selectedEmp);
+    form.reset();
+    modalContainer.classList.remove("modal--show");
+  }
 }
 
 main();
