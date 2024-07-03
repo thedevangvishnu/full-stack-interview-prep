@@ -1,17 +1,49 @@
+// "use strict";
+
 // Question 1: What are objects in js? How to access, modify and delete any object property? How to add "multi-word" properties in objects and how to access them?
+
+// let student = {
+//   studentName: "Devang",
+//   age: 24,
+//   hasGraduated: true,
+//   ["is coming to event"]: false,
+//   description: {
+//     skills: ["JS", "React", "Nextjs"],
+//     experience: "1.5years",
+//     isWorkingCurrently: false,
+//   },
+//   greet() {
+//     console.log(`Hello everyone, I'm ${this.studentName}!`);
+//   },
+// };
+
+// delete student["is coming to event"];
+// student["is coming to event"] = true;
+// student.hasGraduated = false;
+// console.log(student);
 
 /**
  * Output:
  *
  * Answer/Explanation:
- *
+ * Objects are non-primitive data-type in js that define a collection of related data and functionality. These data items are "key-value" pairs and are called a properties. Those properties, who value in a function, are called as methods. Objects are central to JS, as most of the entities in JS are objects only.
  */
 
 /* ********************************************************* */
 
-// Question 2: Determine the output
+// Question 2: Determine the output. Will the output be different in "strict-mode" and "non-strict mode"
 
+// // 2.1
 // const func = (function (num) {
+//   delete num;
+//   return num;
+// })(5);
+
+// console.log(func);
+
+// 2.2
+// const func = (function (num) {
+//   var num = 10;
 //   delete num;
 //   return num;
 // })(5);
@@ -45,11 +77,13 @@
 //   console.log(key + ": " + value);
 // }
 
+// follow up: What's the difference between for...in and for...of loop
+
 /**
  * Output:
  *
  * Answer/Explanation:
- *
+ * for...in loop is used to iterate over the enumerable properties of an object (which are it's keys) while for...of loop is used to iterate over the values of an iterable objects (such as Arrays, Maps, Sets, Strings, arguments object, etc.)
  */
 
 /* ********************************************************* */
@@ -113,6 +147,7 @@
 // a[c] = 456;
 
 // console.log(a[b]);
+// console.log(a);
 
 /**
  * Output:
@@ -132,8 +167,7 @@
 //   health: 90,
 // };
 
-// const json = JSON.stringify(settings);
-
+// console.log(JSON.stringify(settings));
 // console.log(JSON.stringify(settings, ["level", "health"]));
 
 /**
@@ -222,11 +256,43 @@
 
 // Question 11: What are array-like objects? Determine output for the following
 
+// const arrayLikeObj = {
+//   0: "one",
+//   1: "two",
+//   2: "three",
+//   length: 3,
+// };
+
+// const anotherArrayLikeObj = {
+//   1: "one",
+//   2: "two",
+//   3: "three",
+//   length: 4,
+// };
+
+// const obj1 = {
+//   one: 1,
+//   two: 2,
+//   three: 3,
+//   length: 3,
+// };
+
+// const obj2 = {
+//   one: 1,
+//   two: 2,
+//   three: 3,
+// };
+
+// console.log(Array.from(arrayLikeObj)); // ["one", "two", "three"]
+// console.log(Array.from(anotherArrayLikeObj)); // [undefined, "one", "two", "three"]
+// console.log(Array.from(obj1)); // [undefined, undefined, undefined,]
+// console.log(Array.from(obj2)); // []
+
 /**
- * Output:
+ * Output:var num = 20;
  *
  * Answer/Explanation:
- *
+ * Array-like objects in js are objects that have "indexed (numerical) properties" and a length property. These behave like arrays but do not have access to native array methods like map, filter, reduce and so on. Such array-like objects in js are arguments objects, HTMLCollection, NodeList, Strings, Objects (that have indexeced property and a property length)
  */
 
 /* ********************************************************* */
@@ -242,11 +308,13 @@
 //   return [...fruits, ...args, favouireFruit];
 // }
 
-// console.log(getItems(["banana, apple"], "peers", "orange"));
+// console.log(
+//   getItems(["banana, apple"], "peers", "orange", "mangoes", "watermelon")
+// );
 
 /**
  * Output:
- * ["banaa", "apple", "orange", "peers"]
+ * ["banaa", "apple", "orange",  "mangoes", "watermelon", "peers"]
  * Answer/Explanation:
  *
  */
@@ -266,42 +334,36 @@
 // console.log({ a: 1 } === { a: 2 });
 
 // 13.3
-let user = { username: "Shivam" };
-console.log(user); // {username: "Shivam"}
+// let user = { username: "Shivam" };
+// console.log(user); // {username: "Shivam"}
 
-user.username = null;
-console.log(user); // {username: null}
+// user.username = null;
+// console.log(user); // {username: null}
 
-// 13.4
-let person = { name: "Devang" };
-const members = [person];
+// // 13.4
+// let person = { name: "Devang" };
+// const members = [person];
 
-console.log(members);
+// console.log(members);
 
-person.name = null;
-console.log(members);
+// person = null;
+// console.log(members);
 
-/**
- * Output:
- *
- * Answer/Explanation:
- *
- */
+// // 13.5.1
+// let person = { name: "Devang" };
+// const members = [person];
 
-/* ********************************************************* */
+// person.name = null;
+// console.log(members);
 
-// Question 6: Determine the output
+// // 13.5.2
+// let person = { name: "Devang" };
+// const members = [person];
 
-/**
- * Output:
- *
- * Answer/Explanation:
- *
- */
+// console.log(members);
 
-/* ********************************************************* */
-
-// Question 6: Determine the output
+// person.name = null;
+// console.log(members);
 
 /**
  * Output:
@@ -312,7 +374,18 @@ console.log(members);
 
 /* ********************************************************* */
 
-// Question 6: Determine the output
+// Question 14: Determine the output
+
+// const value = { number: 10 };
+
+// const multiply = (x = { ...value }) => {
+//   console.log((x.number *= 2));
+// };
+
+// multiply();
+// multiply();
+// multiply(value);
+// multiply(value);
 
 /**
  * Output:
@@ -323,13 +396,47 @@ console.log(members);
 
 /* ********************************************************* */
 
-// Question 6: Determine the output
+// Question 15: Determine the output
+
+// function changeAgeAndReference(person) {
+//   person.age = 25;
+//   person = {
+//     name: "John",
+//     age: 50,
+//   };
+
+//   return person;
+// }
+
+// const person1 = {
+//   name: "Alex",
+//   age: 30,
+// };
+
+// const person2 = changeAgeAndReference(person1);
+
+// console.log(person1); // ?
+// console.log(person2); // ?
 
 /**
  * Output:
  *
  * Answer/Explanation:
  *
+ */
+
+/* ********************************************************* */
+
+// Question 16: How to clone an object? What's a shallow copy and deep copy
+
+/**
+ * Output:
+ *
+ * Answer/Explanation:
+ * Three ways:
+ *  - Object.assign() (shallow)
+ *  - JSON.parse(JSON.stringify(obj))(deep)
+ *  - Using spread operator like this {...obj}  (deep)
  */
 
 /* ********************************************************* */
