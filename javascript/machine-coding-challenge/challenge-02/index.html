@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Challenge 2: Coutdown Timer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- 10:20 -->
+    <main>
+      <!-- coundown -->
+      <div class="title">
+        <h1>Countdown Timer</h1>
+      </div>
+
+      <!-- countdown container -->
+      <div class="countdown">
+        <div class="countdown__items">
+          <div class="item">
+            <p class="item__title">Hours</p>
+            <input
+              type="number"
+              class="item__input"
+              id="hours"
+              placeholder="00"
+              oninput="this.value=this.value.slice(0, this.maxLength)"
+              maxlength="2"
+            />
+          </div>
+
+          <div class="separator">:</div>
+
+          <div class="item">
+            <p class="item__title">Mins</p>
+            <input
+              type="number"
+              class="item__input"
+              id="minutes"
+              placeholder="00"
+              oninput="this.value=this.value.slice(0, this.maxLength)"
+              maxlength="2"
+            />
+          </div>
+
+          <div class="separator">:</div>
+
+          <div class="item">
+            <p class="item__title">Seconds</p>
+            <input
+              type="number"
+              class="item__input"
+              id="seconds"
+              placeholder="00"
+              oninput="this.value=this.value.slice(0, this.maxLength)"
+              maxlength="2"
+            />
+          </div>
+        </div>
+
+        <div class="countdown__buttons">
+          <button class="start">Start</button>
+          <button class="reset">Reset</button>
+        </div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

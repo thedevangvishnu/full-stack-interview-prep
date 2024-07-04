@@ -211,31 +211,6 @@ async function main() {
   });
 
   function handleSubmit(e, type) {
-    // event.preventDefault();
-    // const formData = new FormData(form);
-    // const employee = {};
-    // for (const [key, value] of formData.entries()) {
-    //   employee[key] = value;
-    // }
-    // if (type === "edit") {
-    //   // Update existing employee
-    //   selectedEmp = { ...selectedEmp, ...employee };
-    //   employees = employees.map((emp) =>
-    //     emp.id === selectedEmp.id ? selectedEmp : emp
-    //   );
-    // } else {
-    //   // Add new employee
-    //   employee.id = employees.length > 0 ? employees.length + 1 : 1;
-    //   employee.imageUrl = employee.imageUrl || FALLBACK_IMAGE_URL; // Set a default image URL
-    //   employees.push(employee);
-    // }
-    // // Save changes to local storage or perform an API call
-    // // localStorage.setItem("employees", JSON.stringify(employees));
-    // // Refresh UI
-    // renderEmpList();
-    // renderEmpDetails(employee); // Show the newly added or edited employee details
-    // modalContainer.classList.remove("modal--show");
-    // form.reset();
     e.preventDefault();
     const formData = new FormData(form);
     const employee = {};
