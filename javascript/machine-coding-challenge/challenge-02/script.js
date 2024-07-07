@@ -1,85 +1,115 @@
+const startBtn = document.querySelector(".start");
+const pauseBtn = document.querySelector(".pause");
+const resetBtn = document.querySelector(".reset");
+
 const hoursInput = document.getElementById("hours");
 const minutesInput = document.getElementById("minutes");
 const secondsInput = document.getElementById("seconds");
 
-const startBtn = document.querySelector(".start");
-const resetBtn = document.querySelector(".reset");
+let time = JSON.parse(localStorage.getItem("countdown"));
 
-let countdownTime;
-let intervalTimer;
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+let timerInterval;
 
-function formatInputTime(hr, min, sec) {
-  let hour = hr,
-    minute = min,
-    second = sec;
+if (time) {
+  if (time.hr !== 0 || time.min !== 0 || time.sec !== 0) {
+    hoursInput.value = time.hr;
+    minutesInput.value = time.min;
+    secondsInput.value = time.sec;
 
-  // handle time based on sec, min and hour
-  if (sec >= 60) {
-    second -= 60;
-    minute += 1;
+    countdown();
   }
-
-  if (min >= 60) {
-    minute -= 60;
-    hour += 1;
-  }
-
-  return { hour, minute, second };
 }
 
-function startCountdown() {
-  let hr = +hoursInput.value;
-  let min = +minutesInput.value;
-  let sec = +secondsInput.value;
+startBtn.addEventListener("click", () => countdown());
 
-  let formattedTime = formatInputTime(hr, min, sec);
-  hr = formattedTime.hour;
-  min = formattedTime.minute;
-  sec = formattedTime.second;
+resetBtn.addEventListener("click", () => {
+  stopCountDown();
+  localStorage.setItem("countdown", null);
+});
 
-  console.log(hr, min, sec);
+pauseBtn.addEventListener("click", () => {
+  hoursInput.value = formatDisplayValue(hours);
+  minutesInput.value = formatDisplayValue(minutes);
+  secondsInput.value = formatDisplayValue(seconds);
 
-  // show correct time before starting
-  hoursInput.value = hr < 10 ? `0${hr}` : hr;
-  minutesInput.value = min < 10 ? `0${min}` : min;
-  secondsInput.value = sec < 10 ? `0${sec}` : sec;
+  clearInterval(timerInterval);
+  pauseBtn.classList.remove("show--pause");
+});
 
-  if (hr === 0 && min === 0 && sec === 0) return;
+function countdown() {
+  hours = parseInt(hoursInput.value) || 0;
+  minutes = parseInt(minutesInput.value) || 0;
+  seconds = parseInt(secondsInput.value) || 0;
 
-  intervalTimer = setInterval(() => {
-    if (hr === 0 && min === 0 && sec === 0) {
-      clearInterval(intervalTimer);
-      hoursInput.value = null;
-      minutesInput.value = null;
-      secondsInput.value = null;
-    } else if (sec !== 0) {
-      sec -= 1;
-      secondsInput.value = sec < 10 ? `0${sec}` : sec;
-    } else if (min !== 0 && sec === 0) {
-      min -= 1;
-      sec = 59;
+  // format the input before starting and compute the time based on any given input
+  // 85 secons should become 01 min 25 secs
+  formatInputTime(hours, minutes, seconds);
+  hoursInput.value = formatDisplayValue(hours);
+  minutesInput.value = formatDisplayValue(minutes);
+  secondsInput.value = formatDisplayValue(seconds);
 
-      minutesInput.value = min < 10 ? `0${min}` : min;
-      secondsInput.value = sec < 10 ? `0${sec}` : sec;
-    } else if (hr !== 0 && min === 0 && sec === 0) {
-      hr -= 1;
-      min = 59;
+  // handle pause
+  pauseBtn.classList.add("show--pause");
 
-      hoursInput.value = hr < 10 ? `0${hr}` : hr;
-      minutesInput.value = min < 10 ? `0${min}` : min;
-      secondsInput.value = sec < 10 ? `0${sec}` : sec;
+  timerInterval = setInterval(() => {
+    if (hours === 0 && minutes === 0 && seconds === 0) {
+      stopCountDown();
+    } else if (seconds !== 0) {
+      seconds -= 1;
+      secondsInput.value = formatDisplayValue(seconds);
+    } else if (minutes !== 0 && seconds === 0) {
+      minutes -= 1;
+      seconds = 59;
+
+      minutesInput.value = formatDisplayValue(minutes);
+      secondsInput.value = formatDisplayValue(seconds);
+    } else if (hours !== 0 && minutes === 0 && seconds === 0) {
+      hours -= 1;
+      minutes = 59;
+      seconds = 59;
+
+      hoursInput.value = formatDisplayValue(hours);
+      minutesInput.value = formatDisplayValue(minutes);
+      secondsInput.value = formatDisplayValue(seconds);
     }
+    setTimeInLocalStorage(hours, minutes, seconds);
   }, 1000);
 }
 
-startBtn.addEventListener("click", startCountdown);
-
-resetBtn.addEventListener("click", handleReset);
-function handleReset() {
-  // remember to stop the current timer
-  clearInterval(intervalTimer);
+function stopCountDown() {
+  clearInterval(timerInterval);
 
   hoursInput.value = null;
   minutesInput.value = null;
   secondsInput.value = null;
+
+  pauseBtn.classList.remove("show--pause");
+}
+
+function formatInputTime() {
+  if (seconds >= 60) {
+    seconds -= 60;
+    minutes += 1;
+  }
+
+  if (minutes >= 60) {
+    minutes -= 60;
+    hours += 1;
+  }
+}
+
+function formatDisplayValue(value) {
+  return value <= 9 ? `0${value}` : value;
+}
+
+function setTimeInLocalStorage(hr, min, sec) {
+  let time = {
+    hr,
+    min,
+    sec,
+  };
+  localStorage.setItem("countdown", JSON.stringify(time));
 }

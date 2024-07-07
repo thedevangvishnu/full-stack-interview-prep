@@ -15,6 +15,10 @@
   --accent: rgb(235, 235, 92);
   --startBg: rgb(114, 224, 114);
   --startBgHover: rgb(136, 233, 136);
+
+  --pauseBg: rgb(224, 217, 114);
+  --pauseBgHover: rgb(213, 207, 123);
+
   --stopBg: rgb(241, 59, 59);
   --stopBgHover: rgb(239, 84, 84);
 }
@@ -117,12 +121,36 @@ main {
   column-gap: 1rem;
 }
 
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .start {
   background-color: var(--startBg);
 }
 
 .start:hover {
   background-color: var(--startBgHover);
+}
+
+.pause {
+  background-color: var(--pauseBg);
+  position: absolute;
+  display: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pause.show--pause {
+  display: inline;
+  visibility: visible;
+  pointer-events: initial;
+}
+
+.pause:hover {
+  background-color: var(--pauseBgHover);
 }
 
 .reset {
