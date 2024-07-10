@@ -1,0 +1,78 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.file__explorer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: start;
+  border-radius: 0.5rem;
+  /* width: 320px; */
+}
+
+.explorer__item {
+  display: flex;
+  height: 40px;
+  width: 300px;
+  background-color: #121212;
+  margin-bottom: 0.5rem;
+  padding-inline: 1rem;
+  align-items: center;
+  justify-self: start;
+  cursor: pointer;
+}
+
+.explorer__children {
+  position: relative;
+  width: 100%;
+}
+
+.explorer__item > p {
+  font-weight: 600;
+}
+
+.icon__container {
+  height: 100%;
+  display: flex;
+  place-items: center;
+  margin-right: 0.35rem;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.buttons {
+  margin-left: auto;
+  display: flex;
+  column-gap: 0.5rem;
+  align-items: center;
+}
+
+.buttons > button {
+  padding: 0.25rem;
+  border: none;
+  background-color: transparent;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.buttons > button:hover {
+  color: #ddd;
+}
+
+input {
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
