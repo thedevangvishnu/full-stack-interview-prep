@@ -32,6 +32,7 @@
 /* ********************************************************* */
 
 // Question 2: Determine the output. Will the output be different in "strict-mode" and "non-strict mode"
+// "use strict";
 
 // // 2.1
 // const func = (function (num) {
@@ -147,7 +148,7 @@
 // a[c] = 456;
 
 // console.log(a[b]);
-// console.log(a);
+// console.log(a[b] === a[c]);
 
 /**
  * Output:
