@@ -46,6 +46,7 @@
 }
 
 .explorer__item {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
@@ -55,7 +56,7 @@
 }
 
 .explorer__item:hover {
-  background-color: #333;
+  background-color: #161616;
 }
 
 .item__icon {
@@ -63,9 +64,52 @@
   align-items: center;
   justify-content: center;
   margin-right: 0.5rem;
+  z-index: 1;
 }
 
 .icon {
   width: 1.25rem;
   height: 1.25rem;
+}
+
+.item__popup {
+  position: absolute;
+  right: 0.5rem;
+  top: 30%;
+  width: 200px;
+  background-color: #111;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 0.5px solid #333;
+  border-radius: 0.5rem;
+}
+
+.popup__item {
+  width: 100%;
+  padding: 0.35rem 0.75rem;
+  display: flex;
+  align-items: center;
+  column-gap: 0.25rem;
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.popup__item:hover {
+  background-color: #333;
+}
+
+.popup__item .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.popup__item > span {
+  font-size: 0.85rem;
+}
+
+.short__cut {
+  margin-left: auto;
+  color: #999;
 }
