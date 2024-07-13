@@ -1,6 +1,6 @@
 ## Core Frontend Interview - Akshay Saini
 
-### 2 - `call()`, `apply()` and `bind()` method
+### 1 - `call()`, `apply()` and `bind()` method
 
 - `call()`
 
@@ -56,7 +56,7 @@
   print2("Hi eveyone!", "What are you all up to?"); // Hi everyone! I'm Vishnu: What are you all up to?
   ```
 
-### 3 - Polyfill for `bind()` method
+### 2 - Polyfill for `bind()` method
 
 - "Polyfill" is a piece of code or a script that provides modern functionality to old browsers that do not support those functions natively.
 
@@ -76,7 +76,7 @@ if (!Math.trunc) {
   - implemented in the code snippet
   - remember to handle all the arguments that can be passed to your bind function or to the returned-bounded function
 
-### 4 - Currying
+### 3 - Currying
 
 - Currying is "a functional programming technique" in which a function that takes multiple arguments (say "n" number of arguments) is transformed into a series of functions that each take a single argument.
 - This process results in a series of nested functions, where each function takes a single arguments and return the next function (forming closure), continuing until all the arguments have been provided.
@@ -199,4 +199,54 @@ const curriedMultiplyBy4 = multiply.bind(this, 4);
 console.log(curriedMultiplyBy4(10, 2)); // 80
 ```
 
-## 5 - Debouncing in JS
+## 4 - Debouncing in JS
+
+## 5 - `async` and `defer` attributes
+
+- Three important concepts:
+  - HTML parsin
+  - Script fetching
+  - Script execution
+
+#### Normal script (without async or defer)
+
+- inside `<head>` tag
+
+  - As soon the script tag is encoutered, the HTML parsing stops and the script is fetched and once it is fetched, it is executed immediately. The parsin continues, once the script is done executing.
+  - Shouldn't do it if script is accesscing elements from the HTML document. It will throw error.
+  - Bad UI experience and poor SEO, as no content avaiable untill script is loaded and executed completely.
+
+- above the closing `<body>` tag
+
+  - script is executed once all HTML inside body tag are parsed.
+  - script is then fetched and executed.
+  - good for smaller scripts that access elements from the html document.
+
+#### `aysnc`
+
+- For Normal scripts:
+
+  - script file is fetched concurrently with HTML parsing.
+  - Once script file is ready, it is executed immediately and pauses the HTML parsing.
+  - If multiple scripts are present, all with async attributes, then their order of execution is the order of which one is fetched and is ready to be executed.
+
+- For Module scripts:
+
+  - the script and all of its dependencies are fetched concurrently with HTML parsing
+  - executes the module script once it is ready (after doing the first step).
+
+- Use case:
+  - used for scripts that are modular and independant of our HTML documents. It is good for loading libraries such as google analytics or similar.
+
+#### `defer`
+
+- For Normal scripts:
+
+  - the script is fetched concurrently with HTML parsing and is executed only after HTML parsing is completed.
+  - For multiple scripts with defer attribute, the scripts are executed in their insertion order.
+
+- For Module scripts:
+
+  - modules are by default defered. Hence, using defer will just be ignored (as the same behavior is by default).
+
+- **Note**: if using async and defer together, then async will take precendence, ignoring the defer attribute. The behavior for module scripts (which are deferred by default) also changes to async in this scenario.
