@@ -1,45 +1,26 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
 import EXPLORER_DATA from "./data/data";
-import FileExplorer from "./components/FileExplorer";
 
 import "./App.css";
-import useTraverseTree from "./hooks/useTraverseTree";
+import FileExplorer from "./components/FileExplorer";
 
-function App() {
-  const [fileExplorerData, setFileExplorerData] = useState(EXPLORER_DATA);
-  const { insertNode } = useTraverseTree();
-
-  const handleInsert = (folderId, newItemName, isFolder) => {
-    const updatedTree = insertNode(
-      fileExplorerData,
-      folderId,
-      newItemName,
-      isFolder
-    );
-    setFileExplorerData(updatedTree);
-  };
-
-  // const handleInsert = (folderId, newItemName, isFolder) => {
-  //   const updatedTree = insertNode(
-  //     fileExplorerData,
-  //     folderId,
-  //     newItemName,
-  //     isFolder
-  //   );
-  //   setFileExplorerData(updatedTree);
-  // };
+const App = () => {
+  const [explorerData, setExplorerData] = useState(EXPLORER_DATA);
 
   return (
-    <>
-      <h2 className="title">File explorer</h2>
-      <div className="file__explorer">
-        <FileExplorer
-          explorerData={fileExplorerData}
-          handleInsert={handleInsert}
-        />
+    <div className="app">
+      <div className="sidebar">
+        <div className="sidebar__title">
+          <h2>File explorer</h2>
+        </div>
+        <FileExplorer explorerData={explorerData} level={0} />
       </div>
-    </>
+      <div className="main">
+        <h2>Main Window</h2>
+      </div>
+    </div>
   );
-}
+};
 
 export default App;

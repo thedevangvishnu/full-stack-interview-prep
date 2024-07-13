@@ -1,78 +1,71 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  width: 100%;
 }
 
-.title {
-  margin-bottom: 1rem;
+.app {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  display: flex;
+  align-items: flex-start;
+  overflow-x: hidden;
 }
 
-.file__explorer {
+.sidebar {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+}
+
+.main {
+  height: 100%;
+  width: 100%;
+  background-color: #111;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-self: start;
-  border-radius: 0.5rem;
-  /* width: 320px; */
+}
+
+.sidebar__title {
+  width: 100%;
+  font-size: 0.75rem;
+  border-bottom: 1px solid #777;
+  padding: 0.5rem 1rem;
+  color: #aaa;
+  text-align: left;
+}
+
+.explorer {
+  width: 100%;
 }
 
 .explorer__item {
   display: flex;
-  height: 40px;
-  width: 300px;
-  background-color: #121212;
-  margin-bottom: 0.5rem;
-  padding-inline: 1rem;
   align-items: center;
-  justify-self: start;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  background-color: transparent;
+  transition: background-color 0.2s;
 }
 
-.explorer__children {
-  position: relative;
-  width: 100%;
+.explorer__item:hover {
+  background-color: #333;
 }
 
-.explorer__item > p {
-  font-weight: 600;
-}
-
-.icon__container {
-  height: 100%;
+.item__icon {
   display: flex;
-  place-items: center;
-  margin-right: 0.35rem;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
 }
 
 .icon {
   width: 1.25rem;
   height: 1.25rem;
-}
-
-.buttons {
-  margin-left: auto;
-  display: flex;
-  column-gap: 0.5rem;
-  align-items: center;
-}
-
-.buttons > button {
-  padding: 0.25rem;
-  border: none;
-  background-color: transparent;
-  color: #999;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.buttons > button:hover {
-  color: #ddd;
-}
-
-input {
-  padding: 0.25rem 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
 }
