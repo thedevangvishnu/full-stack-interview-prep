@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import EXPLORER_DATA from "./data/data";
 import FileExplorer from "./components/FileExplorer";
@@ -8,7 +8,7 @@ import "./App.css";
 
 const App = () => {
   const [explorerData, setExplorerData] = useState(EXPLORER_DATA);
-  const { insertItem } = useExplorer();
+  const { insertItem, deleteItem } = useExplorer();
 
   const handleInsert = (itemId, newItemName, isFolder) => {
     const newExplorerData = insertItem(
@@ -17,6 +17,15 @@ const App = () => {
       newItemName,
       isFolder
     );
+    setExplorerData(newExplorerData);
+  };
+
+  // useEffect(() => {
+  //   console.log("Object:", explorerData);
+  // }, [explorerData]);
+
+  const handleDelete = (itemId) => {
+    const newExplorerData = deleteItem(explorerData, itemId);
     setExplorerData(newExplorerData);
   };
 
@@ -30,6 +39,7 @@ const App = () => {
           explorerData={explorerData}
           level={0}
           handleInsert={handleInsert}
+          handleDelete={handleDelete}
         />
       </div>
       <div className="main">

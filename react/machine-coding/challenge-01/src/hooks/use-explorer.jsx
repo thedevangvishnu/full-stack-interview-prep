@@ -24,10 +24,28 @@ function useExplorer() {
       insertItem(subObj, itemId, newItemName, isFolder);
     }
 
-    return currentObj;
+    return { ...currentObj };
   }
 
-  return { insertItem };
+  function deleteItem(currentObj, itemId) {
+    if (currentObj.id === itemId) {
+      currentObj = null;
+      return currentObj;
+    }
+
+    let items = [];
+
+    for (const subObj of currentObj.items) {
+      if (deleteItem(subObj, itemId)) {
+        items.push(subObj);
+      }
+    }
+
+    currentObj.items = items;
+    return { ...currentObj };
+  }
+
+  return { insertItem, deleteItem };
 }
 
 export default useExplorer;
