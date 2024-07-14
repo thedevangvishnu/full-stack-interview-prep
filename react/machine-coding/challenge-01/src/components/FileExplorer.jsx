@@ -10,15 +10,33 @@ import {
   Trash,
 } from "lucide-react";
 
-const FileExplorer = ({ explorerData, level = 0 }) => {
+const FileExplorer = ({ explorerData, level = 0, handleInsert }) => {
   const [expand, setExpand] = useState(false);
   const [toggleContextMenu, setToggleContextMenu] = useState(false);
+  const [newItem, setNewItem] = useState({ visible: false, isFolder: false });
 
   const contextMenuRef = useRef(null);
 
   const handleClickOutside = (e) => {
     if (contextMenuRef.current && !contextMenuRef.current.contains(e.target)) {
       setToggleContextMenu(false);
+    }
+  };
+
+  const createNewItem = (e, isFolder) => {
+    e.stopPropagation();
+    setExpand(true);
+    setNewItem({
+      visible: true,
+      isFolder,
+    });
+    setToggleContextMenu(false);
+  };
+
+  const onAddNewItem = (e, itemId) => {
+    if (e.target.value && e.keyCode === 13) {
+      setNewItem({ ...newItem, visible: false });
+      handleInsert(itemId, e.target.value, newItem.isFolder);
     }
   };
 
@@ -61,12 +79,15 @@ const FileExplorer = ({ explorerData, level = 0 }) => {
               <>
                 <div
                   className="new__folder popup__item"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => createNewItem(e, true)}
                 >
                   <Folder className="icon" />
                   <span>New Folder</span>
                 </div>
-                <div className="new__file popup__item">
+                <div
+                  className="new__file popup__item"
+                  onClick={(e) => createNewItem(e, false)}
+                >
                   <File className="icon" />
                   <span>New File</span>
                 </div>
@@ -88,12 +109,36 @@ const FileExplorer = ({ explorerData, level = 0 }) => {
         )}
       </div>
       {/* children items of explorerData object */}
+      {newItem.visible && (
+        <div
+          className="explorer__item"
+          style={{ paddingLeft: `${level === 0 ? 40 : level * 20 + 40}px ` }}
+        >
+          <div className="item__icon">
+            {newItem.isFolder ? (
+              <Folder className="icon" />
+            ) : (
+              <File className="icon" />
+            )}
+          </div>
+          <input
+            type="text"
+            autoFocus
+            onBlur={() => setNewItem({ visible: false, isFolder: false })}
+            onKeyDown={(e) => onAddNewItem(e, explorerData.id)}
+          />
+        </div>
+      )}
 
       {explorerData.isFolder &&
         expand &&
         explorerData.items.map((itemData) => (
           <div className="explorer" key={itemData.id}>
-            <FileExplorer explorerData={itemData} level={level + 1} />
+            <FileExplorer
+              explorerData={itemData}
+              level={level + 1}
+              handleInsert={handleInsert}
+            />
           </div>
         ))}
     </div>

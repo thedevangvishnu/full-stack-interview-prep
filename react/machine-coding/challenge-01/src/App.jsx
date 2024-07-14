@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 
 import EXPLORER_DATA from "./data/data";
+import FileExplorer from "./components/FileExplorer";
+import useExplorer from "./hooks/use-explorer";
 
 import "./App.css";
-import FileExplorer from "./components/FileExplorer";
 
 const App = () => {
   const [explorerData, setExplorerData] = useState(EXPLORER_DATA);
+  const { insertItem } = useExplorer();
+
+  const handleInsert = (itemId, newItemName, isFolder) => {
+    const newExplorerData = insertItem(
+      explorerData,
+      itemId,
+      newItemName,
+      isFolder
+    );
+    setExplorerData(newExplorerData);
+  };
 
   return (
     <div className="app">
@@ -14,7 +26,11 @@ const App = () => {
         <div className="sidebar__title">
           <h2>File explorer</h2>
         </div>
-        <FileExplorer explorerData={explorerData} level={0} />
+        <FileExplorer
+          explorerData={explorerData}
+          level={0}
+          handleInsert={handleInsert}
+        />
       </div>
       <div className="main">
         <h2>Main Window</h2>
