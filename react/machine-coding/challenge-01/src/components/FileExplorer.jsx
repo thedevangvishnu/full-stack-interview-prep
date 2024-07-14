@@ -15,6 +15,7 @@ const FileExplorer = ({
   level = 0,
   handleInsert,
   handleDelete,
+  handleRename,
 }) => {
   const [expand, setExpand] = useState(false);
   const [toggleContextMenu, setToggleContextMenu] = useState(false);
@@ -22,13 +23,10 @@ const FileExplorer = ({
 
   const [showModal, setShowModal] = useState(false);
 
-  const contextMenuRef = useRef(null);
+  const [itemName, setItemName] = useState(explorerData?.name);
+  const [renaming, setRenaming] = useState(false);
 
-  const handleClickOutside = (e) => {
-    if (contextMenuRef.current && !contextMenuRef.current.contains(e.target)) {
-      setToggleContextMenu(false);
-    }
-  };
+  const contextMenuRef = useRef(null);
 
   const createNewItem = (e, isFolder) => {
     e.stopPropagation();
@@ -48,7 +46,6 @@ const FileExplorer = ({
   };
 
   const onDeleteItem = (e, itemId) => {
-    console.log("deleting...");
     e.stopPropagation();
     handleDelete(itemId);
   };
@@ -62,6 +59,20 @@ const FileExplorer = ({
   const closeModal = (e) => {
     e.stopPropagation();
     setShowModal(false);
+  };
+
+  const onRenameItem = (e, itemId) => {
+    if (e.type === "keydown" && e.keyCode === 13) {
+      console.log("enter");
+      handleRename(itemId, itemName);
+      setRenaming(false);
+    }
+  };
+
+  const handleClickOutside = (e) => {
+    if (contextMenuRef.current && !contextMenuRef.current.contains(e.target)) {
+      setToggleContextMenu(false);
+    }
   };
 
   useEffect(() => {
@@ -98,7 +109,20 @@ const FileExplorer = ({
           </div>
           {/* name of current item */}
           <div className="item__name">
-            <p>{explorerData.name}</p>
+            {!renaming ? (
+              <p>{explorerData.name}</p>
+            ) : (
+              <input
+                autoFocus
+                value={itemName}
+                onBlur={() => {
+                  setRenaming(false);
+                  setItemName(explorerData.name);
+                }}
+                onChange={(e) => setItemName(e.target.value)}
+                onKeyDown={(e) => onRenameItem(e, explorerData.id)}
+              />
+            )}
           </div>
 
           {/* popup on right click */}
@@ -107,14 +131,14 @@ const FileExplorer = ({
               {explorerData.isFolder && (
                 <>
                   <div
-                    className="new__folder popup__item"
+                    className="popup__item"
                     onClick={(e) => createNewItem(e, true)}
                   >
                     <Folder className="icon" />
                     <span>New Folder</span>
                   </div>
                   <div
-                    className="new__file popup__item"
+                    className="popup__item"
                     onClick={(e) => createNewItem(e, false)}
                   >
                     <File className="icon" />
@@ -123,17 +147,22 @@ const FileExplorer = ({
                 </>
               )}
 
-              <div className="divider"></div>
-
-              <div className="popup__item">
+              <div
+                className="popup__item"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setToggleContextMenu(false);
+                  setRenaming(true);
+                }}
+              >
                 <Edit className="icon" />
                 <span>Rename</span>
-                <span className="short__cut">F2</span>
+                {/* <span className="short__cut">F2</span> */}
               </div>
               <div className="popup__item" onClick={(e) => openModal(e)}>
                 <Trash className="icon" />
                 <span>Delete</span>
-                <span className="short__cut">Del</span>
+                {/* <span className="short__cut">Del</span> */}
               </div>
             </div>
           )}
@@ -169,6 +198,7 @@ const FileExplorer = ({
                 level={level + 1}
                 handleInsert={handleInsert}
                 handleDelete={handleDelete}
+                handleRename={handleRename}
               />
             </div>
           ))}

@@ -8,7 +8,7 @@ import "./App.css";
 
 const App = () => {
   const [explorerData, setExplorerData] = useState(EXPLORER_DATA);
-  const { insertItem, deleteItem } = useExplorer();
+  const { insertItem, deleteItem, renameItem } = useExplorer();
 
   const handleInsert = (itemId, newItemName, isFolder) => {
     const newExplorerData = insertItem(
@@ -29,6 +29,11 @@ const App = () => {
     setExplorerData(newExplorerData);
   };
 
+  const handleRename = (itemId, newName) => {
+    const newExplorerData = renameItem(explorerData, itemId, newName);
+    setExplorerData(newExplorerData);
+  };
+
   return (
     <div className="app">
       <div className="sidebar">
@@ -40,6 +45,7 @@ const App = () => {
           level={0}
           handleInsert={handleInsert}
           handleDelete={handleDelete}
+          handleRename={handleRename}
         />
       </div>
       <div className="main">

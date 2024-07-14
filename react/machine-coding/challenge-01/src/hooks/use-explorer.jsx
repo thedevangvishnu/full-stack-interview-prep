@@ -45,7 +45,27 @@ function useExplorer() {
     return { ...currentObj };
   }
 
-  return { insertItem, deleteItem };
+  let updated = false;
+  function renameItem(currentObj, itemId, newName) {
+    if (currentObj.id === itemId) {
+      currentObj.name = newName;
+      updated = true;
+
+      return currentObj;
+    }
+
+    for (const subObj of currentObj.items) {
+      if (updated) {
+        updated = false;
+        break;
+      }
+      renameItem(subObj, itemId, newName);
+    }
+
+    return { ...currentObj };
+  }
+
+  return { insertItem, deleteItem, renameItem };
 }
 
 export default useExplorer;
