@@ -1,29 +1,47 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
+import { formatPages } from "./libs/format-pages";
+
 import "./App.css";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(
+    parseInt(localStorage.getItem("currentPage")) || 1
+  );
   const [totalPages, setTotalPages] = useState(0);
 
-  const fetchData = async () => {
-    const res = await fetch(
-      `https://dummyjson.com/products?limit=20&skip=${
-        (page - 1) * 20
-      }&select=title,images`
-    );
-    const data = await res.json();
-
-    if (data && data.products) {
-      setProducts(data.products);
-      setTotalPages(Math.ceil(data.total / 20));
-    }
-  };
+  const [showPages, setShowPages] = useState([]);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `https://dummyjson.com/products?limit=20&skip=${
+          (page - 1) * 20
+        }&select=title,images`
+      );
+      const data = await res.json();
+
+      if (data && data.products) {
+        setProducts(data.products);
+        setTotalPages(Math.ceil(data.total / 20));
+      }
+    };
     fetchData();
+  }, [page]);
+
+  useEffect(() => {
+    if (totalPages > 0) {
+      console.log(totalPages);
+      const pages = formatPages(totalPages, page);
+      console.log("Show Pages", pages);
+      setShowPages(pages);
+    }
+  }, [totalPages, page]);
+
+  useEffect(() => {
+    localStorage.setItem("currentPage", page.toString());
   }, [page]);
 
   return (
@@ -52,15 +70,15 @@ function App() {
             <ArrowLeft className="icon" />
           </button>
           <div className="current">
-            {[...Array(10)].map((val, i) => (
+            {showPages.map((val, i) => (
               <span
-                key={i}
+                key={val}
                 onClick={() => {
-                  setPage(i + 1);
+                  setPage(val);
                 }}
-                className={`${page === i + 1 ? "selected" : ""}`}
+                className={`${page === val ? "selected" : ""}`}
               >
-                {i + 1}
+                {val}
               </span>
             ))}
           </div>
