@@ -1,44 +1,9 @@
 #root {
+  /* max-width: 1200px; */
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 main {
@@ -48,15 +13,22 @@ main {
   align-items: center;
 }
 
+.emi__cal {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 4rem;
+  width: 1100px;
+  padding: 0 5rem;
+}
+
 .calculator {
-  width: 420px;
   /* background-color: red; */
   /* border: 1px solid white; */
-
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
+  width: 55%;
 }
 
 .item {
@@ -85,6 +57,49 @@ input::-webkit-outer-spin-button {
 .item > input {
   margin-left: auto;
   max-width: 50%;
+}
+
+.slider {
+  width: 100%;
+  position: relative;
+}
+
+.slider > input {
+  width: 100%;
+}
+
+.min,
+.max {
+  position: absolute;
+  top: 1.75rem;
+  font-size: 0.85rem;
+}
+
+.result {
+  width: 45%;
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.result__item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.result__item > p {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.result__item > span {
+  background-color: #111;
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 475px) {
