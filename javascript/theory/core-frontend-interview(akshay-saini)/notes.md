@@ -250,3 +250,73 @@ console.log(curriedMultiplyBy4(10, 2)); // 80
   - modules are by default defered. Hence, using defer will just be ignored (as the same behavior is by default).
 
 - **Note**: if using async and defer together, then async will take precendence, ignoring the defer attribute. The behavior for module scripts (which are deferred by default) also changes to async in this scenario.
+
+## 6 - Events
+
+#### Event Propagation
+
+Event propagation refers to the way events move through the DOM tree. There are two main phases of event propagation:
+
+1. **Capturing Phase**: The event starts from the window and propagates down to the target element.
+2. **Bubbling Phase**: The event starts from the target element and propagates up to the window.
+
+#### Event Bubbling
+
+Event bubbling occurs when an event starts at the target element and then bubbles up through its ancestors. By default, most events bubble up.
+
+- used by default by browsers
+- In early days, Microsoft advocated to use event bubbling.
+
+#### Event Capturing
+
+Event capturing (or trickling) happens before the target phase and starts from the window object down to the target element. You can capture events by specifying `true` as the third argument to `addEventListener`.
+
+- the third parameter inside event listeners also takes an object, which has multiple properties:
+
+  - {capture: true/false} -> enables/disables event capturing
+  - {once: true} -> runs the event handler only once
+
+- In early days, Netspace used event capturing inside their browsers and advocated it for other browsers as well.
+
+- Use Case / Practical Examples
+  - centralized logging of all events
+  - preventing default early, ensuring consitent behavior across browsers
+  - input validation
+    - catching the input value early (using event handler on form's "input" event) and applying some validation before the value actually reaches the input.
+
+#### Stopping propagation
+
+- Stop the propagation using this method: e.stopPropagation()
+- What is the consequence of using this method in case of bubbling and capturing?
+  - the propogation is stopped at the element.
+  - In case of bubbling, the event won't bubble up and would only execute the handler attache on that element.
+  - In case of capturing, the event won't trickle down and would execute all the handlers until that element on which we have used stopPropagation() method.
+
+#### Event Delegation
+
+Event delegation is a technique where a single event listener is added to a parent element to manage events for multiple child elements. This takes advantage of event bubbling. Instead of adding separate event listeners to each child element, you add a single listener to their common ancestor.
+
+- Advantages
+
+  - Memory
+  - Lesser code
+  - DOM manipulation (lesser event handlers)
+
+- Disadvantages
+  - Not applicable on all events
+  - Cannot work if child elements use stopPropagation()
+
+### Event Simulators
+
+- .click()
+- .focus()
+- .blur()
+- .submit() (on form element)
+- .reset() (on form element)
+
+#### Event Delegation
+
+- What
+- Implementation and examples
+
+.
