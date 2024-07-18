@@ -286,11 +286,21 @@ Event capturing (or trickling) happens before the target phase and starts from t
 
 #### Stopping propagation
 
-- Stop the propagation using this method: e.stopPropagation()
+- Stop the propagation using this method: `e.stopPropagation()` or `e.stopImmediatePropagation()`
 - What is the consequence of using this method in case of bubbling and capturing?
+
   - the propogation is stopped at the element.
   - In case of bubbling, the event won't bubble up and would only execute the handler attache on that element.
   - In case of capturing, the event won't trickle down and would execute all the handlers until that element on which we have used stopPropagation() method.
+
+- `e.stopPropagation()` vs `e.stopImmediatePropagation()`
+
+  - `stopPropagation()` stops the event from propagating from the target element. Though, if there are different handlers attached to the same element, they will be executed.
+  - `stopImmediatePropagation()` stops the event from propagating from the target element and also stops all other handlers that might be attached to the element from getting exectued.
+
+- `e.target` vs `e.currentTarget`
+  - `e.target` specifies the element on which the event was triggered initially. It points to the exact element on which the event happened (regardless of bubbling or capturing phase).
+  - `e.currentTarget` specifies the element whose event handler is being executed based on the triggering of an event ( at e.target).
 
 #### Event Delegation
 
@@ -313,10 +323,3 @@ Event delegation is a technique where a single event listener is added to a pare
 - .blur()
 - .submit() (on form element)
 - .reset() (on form element)
-
-#### Event Delegation
-
-- What
-- Implementation and examples
-
-.
