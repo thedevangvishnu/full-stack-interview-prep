@@ -167,13 +167,15 @@ main {
   height: 200px;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid var(--itemHoverBg);
 }
 
 .employee__image > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid var(--itemHoverBg);
+  overflow: hidden;
 }
 
 .employee__info {
@@ -208,7 +210,7 @@ main {
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
   pointer-events: none;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .modal__container.modal--show {
