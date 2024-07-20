@@ -131,9 +131,18 @@ function createPromise() {
 
 async/await are used to handle promises.
 
-- `await` keyword can only be used inside an `async` function
+- `await` keyword can only be used inside an `async` function or at the top level of a module script.
+
+- `await` keyword stops the execution: execution of that function is suspended when control encouters the `await` keyword and pushes that function out of the call stack so that the js engine can still execute other functions and operations. As soon as the promise resolves, that function is pushed into the callstack and the executions continues from the point where it was suspended.
 
 - Why even the need of async/await
+
+  - cleaner syntax
+  - makes code more readable, understandable, hence making debugging easier.
+
+- use `try-catch` block when using asyn-await.
+  - add the logic of promise inside the try block.
+  - add error handling logic inside the catch block.
 
 ### 6 - `this` keyword
 
