@@ -216,4 +216,6 @@ function App() {
   );
 }
 
+function formatAmount(amount) {}
+
 export default App;

@@ -1,0 +1,159 @@
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.generator__container {
+  width: 500px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  background-color: #222;
+  border-radius: 0.75rem;
+  /* box-shadow: 4px 8px 20px rgba(0, 0, 0, 0.4); */
+  border: 2px solid #333;
+}
+
+.password__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.password__info.hidden {
+  display: none;
+}
+
+.password {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 2px solid #333;
+  border-radius: 0.75rem;
+}
+
+.password p {
+  width: 100%;
+  text-align: left;
+  font-size: 1.25rem;
+  font-weight: 500;
+  padding-left: 1rem;
+}
+
+.password button {
+  font-size: 0.85rem;
+  border-radius: 0rem 0.75rem 0.7rem 0;
+}
+
+.info {
+  align-self: center;
+  display: flex;
+  background-color: #111;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  gap: 0.5rem;
+}
+
+.info p {
+  color: #aaa;
+}
+
+.info span {
+  font-weight: 500;
+}
+
+.password__length {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.length {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.length p {
+  font-size: 1rem;
+}
+
+.length span {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.slider {
+  width: 100%;
+}
+
+.slider input {
+  width: 100%;
+}
+
+.password__options {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.option {
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.option label,
+.option input {
+  cursor: pointer;
+}
+
+label {
+  color: #ddd;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 550px) {
+  #root {
+    width: 100%;
+    padding: 1rem;
+    margin: 0;
+  }
+
+  .generator__container {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .password__options {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .option {
+    width: 100%;
+  }
+}
