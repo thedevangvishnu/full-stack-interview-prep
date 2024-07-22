@@ -1,11 +1,6 @@
-import { useState } from "react";
-
-import {
-  LOWERCASE__LETTERS,
-  UPPERCASE__LETTERS,
-  NUMBERS,
-  SYMBOLS,
-} from "./libs/constants";
+import { useEffect, useRef, useState } from "react";
+import { usePassword } from "./hooks/use-password";
+import PasswordOption from "./components/Password-Option";
 
 import "./App.css";
 
@@ -19,14 +14,56 @@ function App() {
     includesNumbers: false,
     includesSymbols: false,
   });
+  let [copied, setCopied] = useState(false);
+  const timerRef = useRef(null);
 
-  function generatePassword(
-    length,
-    hasUpper,
+  const { generatePassword, calculateStrength } = usePassword();
+
+  const handleGeneratePassword = (
+    passLength,
     hasLower,
-    hasNumbers,
-    hasSymbols
-  ) {}
+    hasUpper,
+    hasNumber,
+    hasSymbol
+  ) => {
+    // clear the last timeout and reset copied state everytime a new password is generated
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    setCopied(false);
+
+    let value = generatePassword(
+      passLength,
+      hasLower,
+      hasUpper,
+      hasNumber,
+      hasSymbol
+    );
+    let strength = calculateStrength(value);
+    setPassword({
+      ...password,
+      value,
+      strength,
+      length: value.length,
+    });
+  };
+
+  const handleCopy = () => {
+    setCopied(true);
+    if (password.value) {
+      navigator.clipboard.writeText(password.value);
+
+      timerRef.current = setTimeout(() => {
+        setCopied(false);
+      }, 4000);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const {
     value,
@@ -46,7 +83,9 @@ function App() {
           <div className="password__info">
             <div className="password ">
               <p>{value}</p>
-              <button>COPY</button>
+              <button onClick={handleCopy}>
+                {!copied ? "COPY" : "COPIED"}
+              </button>
             </div>
             <div className="info">
               <p>Strength</p>
@@ -72,66 +111,68 @@ function App() {
           </div>
         </div>
         <div className="password__options">
-          <div className="option">
-            <input
-              type="checkbox"
-              id="lowercase"
-              checked={includesLowerCaseLetters}
-              onChange={(e) =>
-                setPassword({
-                  ...password,
-                  includesLowerCaseLetters: e.target.checked,
-                })
-              }
-            />
-            <label htmlFor="lowercase">Include Lowercase Letters</label>
-          </div>
-          <div className="option">
-            <input
-              type="checkbox"
-              id="uppercase"
-              checked={includesUpperCaseLetters}
-              onChange={(e) =>
-                setPassword({
-                  ...password,
-                  includesUpperCaseLetters: e.target.checked,
-                })
-              }
-            />
-            <label htmlFor="uppercase">Include Uppercase Letters</label>
-          </div>
+          <PasswordOption
+            id="lowercase"
+            checked={includesLowerCaseLetters}
+            onChange={(e) =>
+              setPassword({
+                ...password,
+                includesLowerCaseLetters: e.target.checked,
+              })
+            }
+            labelTitle="Include Lowercase Letters"
+          />
 
-          <div className="option">
-            <input
-              type="checkbox"
-              id="numbers"
-              checked={includesNumbers}
-              onChange={(e) =>
-                setPassword({
-                  ...password,
-                  includesNumbers: e.target.checked,
-                })
-              }
-            />
-            <label htmlFor="numbers">Include numbers</label>
-          </div>
-          <div className="option">
-            <input
-              type="checkbox"
-              id="symbols"
-              checked={includesSymbols}
-              onChange={(e) =>
-                setPassword({
-                  ...password,
-                  includesSymbols: e.target.checked,
-                })
-              }
-            />
-            <label htmlFor="symbols">Include symbols</label>
-          </div>
+          <PasswordOption
+            id="uppercase"
+            checked={includesUpperCaseLetters}
+            onChange={(e) =>
+              setPassword({
+                ...password,
+                includesUpperCaseLetters: e.target.checked,
+              })
+            }
+            labelTitle="Include UpperCase Letters"
+          />
+
+          <PasswordOption
+            id="numbers"
+            checked={includesNumbers}
+            onChange={(e) =>
+              setPassword({
+                ...password,
+                includesNumbers: e.target.checked,
+              })
+            }
+            labelTitle="Include Numbers"
+          />
+
+          <PasswordOption
+            id="symbols"
+            checked={includesSymbols}
+            onChange={(e) =>
+              setPassword({
+                ...password,
+                includesSymbols: e.target.checked,
+              })
+            }
+            labelTitle="Include Symbols"
+          />
         </div>
 
-        <button>GENERATE</button>
+        <button
+          onClick={() =>
+            handleGeneratePassword(
+              length,
+              includesUpperCaseLetters,
+              includesLowerCaseLetters,
+              includesNumbers,
+              includesSymbols
+            )
+          }
+        >
+          GENERATE
+        </button>
       </div>
     </main>
   );
